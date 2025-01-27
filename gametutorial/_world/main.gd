@@ -10,6 +10,7 @@ var enemy_amount = 0
 var changed_freq_low = 5
 var changed_freq_high = 20
 
+@export var freq_mod = 0.95
 
 func _ready():
 	$Player.hide()
@@ -18,23 +19,29 @@ func _ready():
 	game_over.hide()
 
 func spawn_enemies():
+	enemy_amount = 0  # Reset enemy amount before spawning new wave
 	for x in range(9):
 		for y in range(3):
 			var enemy = enemy_scene.instantiate()
 			var pos = Vector2(x * (16 + 8) + 24, 16 * 4 + y * 16)
-			enemy_amount += 1
+			enemy.set_position(pos)  # Set position before adding as a child
 			add_child(enemy)
-			enemy.start(pos)
-			enemy.died.connect(_on_enemy_died)
-			enemy.fire_rate(changed_freq_low, changed_freq_high)
+			call_deferred("initialize_enemy", enemy, pos)
+			enemy_amount += 1  # Increment enemy amount for each enemy added
+
+func initialize_enemy(enemy, pos):
+	enemy.start(pos)
+	enemy.died.connect(_on_enemy_died)
+	enemy.fire_rate(changed_freq_low, changed_freq_high)
 
 func _on_enemy_died(value):
 	score += value
 	$CanvasLayer/UI.update_score(score)
 	enemy_amount -= 1
 	if enemy_amount == 0:
-		spawn_enemies()
+		await get_tree().create_timer(1.0).timeout  # Small delay before spawning the next wave
 		update_freq()
+		spawn_enemies()
 
 func _on_start_pressed() -> void:
 	$Player.show()
@@ -58,5 +65,5 @@ func _on_player_died() -> void:
 	start_button.show()
 
 func update_freq():
-	changed_freq_low *= 0.95
-	changed_freq_high *= 0.95
+	changed_freq_low *= freq_mod
+	changed_freq_high *= freq_mod

@@ -10,7 +10,6 @@ var enemy_bullet_scene = preload("res://_enemy/_bullet/enemy_bullet.tscn")
 
 @onready var screensize = get_viewport_rect().size
 
-
 func start(pos):
 	speed = 0
 	position = Vector2(pos.x, -pos.y)
