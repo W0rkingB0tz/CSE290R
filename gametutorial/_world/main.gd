@@ -5,9 +5,15 @@ extends Node2D
 
 var enemy_scene = preload("res://_enemy/enemy.tscn")
 var score = 0
+var enemy_amount = 0
+
+var changed_freq_low = 5
+var changed_freq_high = 20
 
 
 func _ready():
+	$Player.hide()
+	$Player.can_shoot = false
 	start_button.show()
 	game_over.hide()
 
@@ -16,15 +22,23 @@ func spawn_enemies():
 		for y in range(3):
 			var enemy = enemy_scene.instantiate()
 			var pos = Vector2(x * (16 + 8) + 24, 16 * 4 + y * 16)
+			enemy_amount += 1
 			add_child(enemy)
 			enemy.start(pos)
 			enemy.died.connect(_on_enemy_died)
+			enemy.fire_rate(changed_freq_low, changed_freq_high)
 
 func _on_enemy_died(value):
 	score += value
 	$CanvasLayer/UI.update_score(score)
+	enemy_amount -= 1
+	if enemy_amount == 0:
+		spawn_enemies()
+		update_freq()
 
 func _on_start_pressed() -> void:
+	$Player.show()
+	$Player.can_shoot = true
 	start_button.hide()
 	new_game()
 
@@ -32,11 +46,17 @@ func new_game():
 	score = 0
 	$CanvasLayer/UI.update_score(score)
 	$Player.start()
+	$Player.shield = $Player.max_shield
 	spawn_enemies()
 
 func _on_player_died() -> void:
 	get_tree().call_group("enemies", "queue_free")
+	$Player.can_shoot = false
 	game_over.show()
 	await get_tree().create_timer(2).timeout
 	game_over.hide()
 	start_button.show()
+
+func update_freq():
+	changed_freq_low *= 0.95
+	changed_freq_high *= 0.95

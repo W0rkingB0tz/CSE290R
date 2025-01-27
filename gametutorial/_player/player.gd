@@ -50,7 +50,8 @@ func shoot():
 	bullet.start(position + Vector2(0,-8))
 
 func _on_gun_cooldown_timeout() -> void:
-	can_shoot = true
+	if shield >= 0:
+		can_shoot = true
 
 func set_shield(value):
 	shield = min(max_shield, value)

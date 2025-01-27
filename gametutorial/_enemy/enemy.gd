@@ -3,6 +3,8 @@ signal died
 
 var start_pos = Vector2.ZERO
 var speed = 0
+var freq_low = 5
+var freq_high = 20
 
 var enemy_bullet_scene = preload("res://_enemy/_bullet/enemy_bullet.tscn")
 
@@ -17,9 +19,9 @@ func start(pos):
 	var tween = create_tween().set_trans(Tween.TRANS_BACK)
 	tween.tween_property(self, "position:y", start_pos.y, 1.4)
 	await tween.finished
-	$MoveTimer.wait_time = randf_range(5, 20)
+	$MoveTimer.wait_time = randf_range(freq_low, freq_high)
 	$MoveTimer.start()
-	$ShootTimer.wait_time = randf_range(4, 20)
+	$ShootTimer.wait_time = randf_range(freq_low, freq_high)
 	$ShootTimer.start()
 
 func _on_move_timer_timeout() -> void:
@@ -29,7 +31,7 @@ func _on_shoot_timer_timeout() -> void:
 	var bullet = enemy_bullet_scene.instantiate()
 	get_tree().root.add_child(bullet)
 	bullet.start(position)
-	$ShootTimer.wait_time = randf_range(4, 20)
+	$ShootTimer.wait_time = randf_range(freq_low, freq_high)
 	$ShootTimer.start()
 
 func _process(delta):
@@ -44,3 +46,7 @@ func explode():
 	died.emit(5)
 	await $AnimationPlayer.animation_finished
 	queue_free()
+
+func fire_rate(changed_low, changed_high):
+	freq_low = changed_low
+	freq_high = changed_high
