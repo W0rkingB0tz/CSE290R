@@ -2,10 +2,12 @@ extends Node2D
 
 @onready var start_button = $CanvasLayer/CenterContainer/Start
 @onready var game_over = $CanvasLayer/CenterContainer/GameOver
+@onready var wave_label = $CanvasLayer/CenterContainer/Label
 
 var enemy_scene = preload("res://_enemy/enemy.tscn")
 var score = 0
 var enemy_amount = 0
+var wave_counter = 1
 
 var changed_freq_low = 5
 var changed_freq_high = 20
@@ -17,6 +19,7 @@ func _ready():
 	$Player.can_shoot = false
 	start_button.show()
 	game_over.hide()
+	wave_label.hide()
 
 func spawn_enemies():
 	enemy_amount = 0  # Reset enemy amount before spawning new wave
@@ -39,7 +42,11 @@ func _on_enemy_died(value):
 	$CanvasLayer/UI.update_score(score)
 	enemy_amount -= 1
 	if enemy_amount == 0:
+		wave_counter += 1
+		wave_label.text = "Wave: " + str(wave_counter)
+		wave_label.show()
 		await get_tree().create_timer(1.0).timeout  # Small delay before spawning the next wave
+		wave_label.hide()
 		update_freq()
 		spawn_enemies()
 

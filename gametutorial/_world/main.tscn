@@ -83,6 +83,10 @@ texture_normal = ExtResource("5_yruaj")
 layout_mode = 2
 texture = ExtResource("6_umygu")
 
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+text = "Wave: 1"
+
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="shield_changed" from="Player" to="CanvasLayer/UI" method="update_shield"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/Start" to="." method="_on_start_pressed"]
