@@ -14,6 +14,10 @@ var changed_freq_high = 20
 
 @export var freq_mod = 0.95
 
+func _process(_delta):
+	if Input.is_action_pressed("quit"):
+		get_tree().quit()
+
 func _ready():
 	$Player.hide()
 	$Player.can_shoot = false
