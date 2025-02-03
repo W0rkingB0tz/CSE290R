@@ -10,13 +10,13 @@ config_version=5
 
 [application]
 
-config/name="Game Idea"
+config/name="Abismo"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="Game Idea"
+project/assembly_name="Abismo"
 
 [input]
 
