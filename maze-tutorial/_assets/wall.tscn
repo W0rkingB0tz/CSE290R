@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuxafe5yfgx8j"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2e06f"]
-albedo_color = Color(0.454524, 0.454524, 0.454524, 1)
-
-[node name="Wall" type="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.89935)
-size = Vector3(4, 3, 0.201294)
-material = SubResource("StandardMaterial3D_2e06f")

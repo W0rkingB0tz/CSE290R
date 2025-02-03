@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://i634y38senls"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_adgnb"]
+
+[node name="Floor" type="CSGMesh3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+use_collision = true
+mesh = SubResource("PlaneMesh_adgnb")

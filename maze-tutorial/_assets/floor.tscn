@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://r1d8euuodsaa"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ehvh"]
-albedo_color = Color(0.266397, 0.166755, 0.036996, 1)
-
-[node name="Floor" type="CSGBox3D"]
-size = Vector3(4, 0.001, 4)
-material = SubResource("StandardMaterial3D_2ehvh")
