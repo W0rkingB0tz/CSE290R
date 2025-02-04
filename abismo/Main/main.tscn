@@ -6,6 +6,5 @@
 [node name="Main" type="Node"]
 
 [node name="PiecesManager" parent="." instance=ExtResource("1_pnycb")]
-border = Vector2(500, 500)
 
 [node name="Player" parent="." instance=ExtResource("1_jb0qv")]
