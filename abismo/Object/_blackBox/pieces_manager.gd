@@ -11,4 +11,4 @@ func _ready():
 		var x_pos = randf_range(-border.x, border.x)
 		var y_pos = randf_range(-border.y, border.y)
 		black_box_piece.position = Vector2(x_pos, y_pos)
-		add_child(black_box_piece)
+		get_parent().add_child.call_deferred(black_box_piece)

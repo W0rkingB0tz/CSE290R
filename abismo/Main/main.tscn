@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn4in1gnygpoh"]
+[gd_scene load_steps=3 format=3 uid="uid://cn4in1gnygpoh"]
 
 [ext_resource type="PackedScene" uid="uid://dms5osls8sg1p" path="res://Characters/_player/player.tscn" id="1_jb0qv"]
+[ext_resource type="PackedScene" uid="uid://hgk02gydqume" path="res://Object/_blackBox/pieces_manager.tscn" id="1_pnycb"]
 
 [node name="Main" type="Node"]
+
+[node name="PiecesManager" parent="." instance=ExtResource("1_pnycb")]
+border = Vector2(500, 500)
 
 [node name="Player" parent="." instance=ExtResource("1_jb0qv")]
