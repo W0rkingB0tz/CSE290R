@@ -10,3 +10,7 @@ func _process(delta):
 	velocity = direction * speed * delta
 	
 	move_and_slide()
+
+func _on_detector_area_entered(area: Area2D) -> void:
+	if area.is_in_group("pickable"):
+		area.queue_free()
